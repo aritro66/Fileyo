@@ -2,7 +2,8 @@ import "./App.css";
 import react, { useState } from "react";
 import Home from "./Pages/Home";
 import Layout from "./Layout/Layout";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
+import Download from "./Pages/Download";
 
 function App() {
   const [form, setForm] = useState({});
@@ -30,6 +31,8 @@ function App() {
       <Layout>
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/download/:id" element={<Download />} />
+          <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </Layout>
       {/* <button onClick={handletest}>Test</button>
