@@ -19,16 +19,20 @@ export default function Download() {
       method: "POST",
       body: JSON.stringify({ ...form, fileId: id }),
     })
-      .then((res) => res.blob())
+      .then((res) => {
+        if (res.ok) return res.blob();
+        else throw new Error("Failed");
+      })
       .then((data) => {
         const objURL = URL.createObjectURL(data);
         console.log(objURL);
-        setFileURL(objURL);
-        // downloadRef.current.click();
+        // setFileURL(objURL);
+        downloadRef.current.href = objURL;
+        downloadRef.current.click();
       })
       .catch((err) => {
         console.log(err);
-        toast.error(err);
+        toast.error(err.message);
       });
   };
 
@@ -83,7 +87,7 @@ export default function Download() {
       </Box>
       {/* <button onClick={handletest}>Test</button> */}
       <a
-        // style={{ visibility: "hidden" }}
+        style={{ visibility: "hidden" }}
         ref={downloadRef}
         href={fileURL}
         download
