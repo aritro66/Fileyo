@@ -35,10 +35,6 @@ function App() {
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </Layout>
-      {/* <button onClick={handletest}>Test</button>
-      <a href={fileURL} download>
-        download
-      </a> */}
     </>
   );
 }

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { toast, Toaster } from "react-hot-toast";
 import { MdDriveFolderUpload } from "react-icons/md";
+import { RxCopy } from "react-icons/rx";
 import {
   Box,
   FormControl,
@@ -16,10 +17,15 @@ import {
   ModalHeader,
   ModalBody,
   ModalFooter,
+  HStack,
 } from "@chakra-ui/react";
+import copy from "copy-to-clipboard";
 
 export default function Home() {
   const [form, setForm] = useState({});
+  const [copyURL, setCopyURL] = useState(
+    "http://localhost:3000/download/rweweewteerrter"
+  );
   const { isOpen, onOpen, onClose } = useDisclosure();
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -82,6 +88,32 @@ export default function Home() {
           >
             Start
           </Button>
+          {copyURL.length > 0 && (
+            <HStack
+              backgroundColor="rgba(0, 0, 0, 0.6)"
+              backdropBlur="16px"
+              px="10px"
+              py="5px"
+              borderRadius="8px"
+            >
+              <Box
+                maxWidth="240px"
+                overflow="hidden"
+                whiteSpace="nowrap"
+                textOverflow="ellipsis"
+              >
+                {copyURL}
+              </Box>
+
+              <RxCopy
+                cursor="pointer"
+                onClick={() => {
+                  copy(copyURL);
+                  toast.success("URL coppied!!!");
+                }}
+              />
+            </HStack>
+          )}
         </Stack>
       </Box>
       <Modal isOpen={isOpen} onClose={onClose}>
