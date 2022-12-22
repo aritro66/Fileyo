@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { useParams } from "react-router-dom";
 import { Toaster, toast } from "react-hot-toast";
 import { Box, Button, FormControl, HStack, Input } from "@chakra-ui/react";
@@ -9,6 +9,7 @@ export default function Download() {
   console.log(id);
   const [form, setForm] = useState({});
   const [fileURL, setFileURL] = useState("");
+  const downloadRef = useRef();
   const handleSubmit = async (e) => {
     e.preventDefault();
     await fetch("http://localhost:4004/download", {
@@ -23,12 +24,14 @@ export default function Download() {
         const objURL = URL.createObjectURL(data);
         console.log(objURL);
         setFileURL(objURL);
+        // downloadRef.current.click();
       })
       .catch((err) => {
         console.log(err);
         toast.error(err);
       });
   };
+
   return (
     <>
       <Box h="50px" w={["260px, 290px, 310px, 340px"]}>
@@ -51,7 +54,7 @@ export default function Download() {
                 fontSize="15px"
                 placeholder="Enter password"
                 onChange={(e) => {
-                  setForm({ ...form, [e.target.name]: e.target.files[0] });
+                  setForm({ ...form, [e.target.name]: e.target.value });
                 }}
                 required
               />
@@ -78,10 +81,15 @@ export default function Download() {
           </HStack>
         </form>
       </Box>
-      {/* <button onClick={handletest}>Test</button>
-      <a href={fileURL} download>
+      {/* <button onClick={handletest}>Test</button> */}
+      <a
+        // style={{ visibility: "hidden" }}
+        ref={downloadRef}
+        href={fileURL}
         download
-      </a> */}
+      >
+        download
+      </a>
       <Toaster position="top-center" reverseOrder={false} />
     </>
   );

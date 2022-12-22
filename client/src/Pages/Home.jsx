@@ -23,9 +23,7 @@ import copy from "copy-to-clipboard";
 
 export default function Home() {
   const [form, setForm] = useState({});
-  const [copyURL, setCopyURL] = useState(
-    "http://localhost:3000/download/rweweewteerrter"
-  );
+  const [copyURL, setCopyURL] = useState("");
   const { isOpen, onOpen, onClose } = useDisclosure();
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -35,7 +33,7 @@ export default function Home() {
     for (let key in form) {
       form_data.append(key, form[key]);
     }
-
+    setCopyURL((prev) => (prev = ""));
     await fetch("http://localhost:4004/form", {
       method: "POST",
       body: form_data,
@@ -43,6 +41,9 @@ export default function Home() {
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
+        setCopyURL(
+          (prev) => (prev = `http://localhost:3000/download/${data.data}`)
+        );
         toast.success("Success!!!");
       })
       .catch((err) => {
@@ -148,10 +149,10 @@ export default function Home() {
                   />
                 </FormControl>
                 <FormControl required>
-                  <FormLabel>Enter password</FormLabel>
+                  <FormLabel>Set password</FormLabel>
                   <Input
-                    type="text"
-                    name="te"
+                    type="password"
+                    name="password"
                     w="100%"
                     onChange={(e) => {
                       setForm({ ...form, [e.target.name]: e.target.value });
