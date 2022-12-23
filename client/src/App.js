@@ -1,5 +1,4 @@
 import "./App.css";
-import react, { useState } from "react";
 import Home from "./Pages/Home";
 import Layout from "./Layout/Layout";
 import { Routes, Route, Navigate } from "react-router-dom";

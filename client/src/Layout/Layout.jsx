@@ -1,12 +1,5 @@
 import React from "react";
-import {
-  Box,
-  FormControl,
-  FormLabel,
-  Input,
-  Text,
-  Stack,
-} from "@chakra-ui/react";
+import { Box } from "@chakra-ui/react";
 import Navbar from "./Navbar";
 import logo from "../images/filebg.jpg";
 

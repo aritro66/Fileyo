@@ -8,11 +8,10 @@ export default function Download() {
   const { id } = useParams();
   console.log(id);
   const [form, setForm] = useState({});
-  const [fileURL, setFileURL] = useState("");
   const downloadRef = useRef();
   const handleSubmit = async (e) => {
     e.preventDefault();
-    await fetch("http://localhost:4004/download", {
+    await fetch(`${process.env.REACT_APP_SERVER_BASE_URL}/download`, {
       headers: {
         "Content-Type": "application/json",
       },
@@ -26,7 +25,6 @@ export default function Download() {
       .then((data) => {
         const objURL = URL.createObjectURL(data);
         console.log(objURL);
-        // setFileURL(objURL);
         downloadRef.current.href = objURL;
         downloadRef.current.click();
       })
@@ -48,7 +46,6 @@ export default function Download() {
                 color="white"
                 bgColor="transparent"
                 borderColor="white"
-                // borderRadius="10px"
                 borderTopLeftRadius="10px"
                 borderBottomLeftRadius="10px"
                 h="50px"
@@ -69,7 +66,6 @@ export default function Download() {
               color="white"
               bgColor="transparent"
               borderColor="white"
-              //   borderRadius="10px"
               borderTopRightRadius="10px"
               borderBottomRightRadius="10px"
               variant="outline"
@@ -85,13 +81,8 @@ export default function Download() {
           </HStack>
         </form>
       </Box>
-      {/* <button onClick={handletest}>Test</button> */}
-      <a
-        style={{ visibility: "hidden" }}
-        ref={downloadRef}
-        href={fileURL}
-        download
-      >
+
+      <a style={{ visibility: "hidden" }} ref={downloadRef} href="#" download>
         download
       </a>
       <Toaster position="top-center" reverseOrder={false} />

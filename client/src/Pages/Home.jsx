@@ -34,7 +34,7 @@ export default function Home() {
       form_data.append(key, form[key]);
     }
     setCopyURL((prev) => (prev = ""));
-    await fetch("http://localhost:4004/form", {
+    await fetch(`${process.env.REACT_APP_SERVER_BASE_URL}/form`, {
       method: "POST",
       body: form_data,
     })
@@ -42,7 +42,8 @@ export default function Home() {
       .then((data) => {
         console.log(data);
         setCopyURL(
-          (prev) => (prev = `http://localhost:3000/download/${data.data}`)
+          (prev) =>
+            (prev = `${process.env.REACT_APP_CLIENT_BASE_URL}/download/${data.data}`)
         );
         toast.success("Success!!!");
       })
