@@ -24,12 +24,13 @@ import copy from "copy-to-clipboard";
 export default function Home() {
   const [form, setForm] = useState({});
   const [copyURL, setCopyURL] = useState("");
+  const [loading, setLoading] = useState(false);
   const { isOpen, onOpen, onClose } = useDisclosure();
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(() => true);
     console.log(form.file_upload.name);
     const form_data = new FormData();
-
     for (let key in form) {
       form_data.append(key, form[key]);
     }
@@ -45,10 +46,12 @@ export default function Home() {
           (prev) =>
             (prev = `${process.env.REACT_APP_CLIENT_BASE_URL}/download/${data.data}`)
         );
+        setLoading(() => false);
         toast.success("Success!!!");
       })
       .catch((err) => {
         console.log(err);
+        setLoading(() => false);
         toast.error("failed!!!, try again");
       });
     onClose();
@@ -165,6 +168,7 @@ export default function Home() {
             </ModalBody>
 
             <ModalFooter>
+              {loading && <Text mr="5px">Loading... </Text>}
               <Button
                 type="submit"
                 mr={4}

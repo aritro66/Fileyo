@@ -1,16 +1,24 @@
 import React, { useState, useRef } from "react";
 import { useParams } from "react-router-dom";
 import { Toaster, toast } from "react-hot-toast";
-import { Box, Button, FormControl, HStack, Input } from "@chakra-ui/react";
+import {
+  Box,
+  Button,
+  FormControl,
+  HStack,
+  Input,
+  Text,
+} from "@chakra-ui/react";
 import { FaDownload } from "react-icons/fa";
 
 export default function Download() {
   const { id } = useParams();
-  console.log(id);
   const [form, setForm] = useState({});
+  const [loading, setLoading] = useState(false);
   const downloadRef = useRef();
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(() => true);
     await fetch(`${process.env.REACT_APP_SERVER_BASE_URL}/download`, {
       headers: {
         "Content-Type": "application/json",
@@ -25,11 +33,13 @@ export default function Download() {
       .then((data) => {
         const objURL = URL.createObjectURL(data);
         console.log(objURL);
+        setLoading(() => false);
         downloadRef.current.href = objURL;
         downloadRef.current.click();
       })
       .catch((err) => {
         console.log(err);
+        setLoading(() => false);
         toast.error(err.message);
       });
   };
@@ -81,6 +91,7 @@ export default function Download() {
           </HStack>
         </form>
       </Box>
+      {loading && <Text mt="10px">Loading... </Text>}
 
       <a style={{ visibility: "hidden" }} ref={downloadRef} href="#" download>
         download
