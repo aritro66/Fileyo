@@ -16,6 +16,16 @@ bcryptjs: A library for hashing and salting passwords.
 Multer: A middleware for handling file uploads in Node.js.
 Chakra UI: A simple and modular component library for React applications.
 
+## Screen Shots
+![image](https://github.com/aritro66/Fileyo/assets/78261928/e9b46157-daaf-438e-a67f-1089ddd0a41c)
+![image](https://github.com/aritro66/Fileyo/assets/78261928/92e25da9-58bd-4dc4-bd0d-8c99f0523847)
+![image](https://github.com/aritro66/Fileyo/assets/78261928/4cc93210-6cbe-45c1-b1ea-af61c8a5dc5c)
+![image](https://github.com/aritro66/Fileyo/assets/78261928/a1b75563-bdf1-464f-8019-803b20483e9d)
+
+
+
+
+
 ## Getting Started
 To get started with the project, follow the steps below:
 
